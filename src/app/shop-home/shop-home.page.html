@@ -12,104 +12,18 @@
 <ion-content padding>
 
   <ion-searchbar animated placeholder="Search your item"></ion-searchbar>
-
-  <ion-grid>
-    <ion-row>
-    <ion-col>
-      <ion-card no-margin>
-        <ion-card-content no-padding>
-          <ion-thumbnail size="100px">
-            <img src="https://cdn.pixabay.com/photo/2017/01/15/18/23/mango-1982330_640.jpg" alt="">
-          </ion-thumbnail>
-          <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-          <div padding-horizontal>
-              and break clear away...
-              <p><b>$120</b></p>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-    <ion-col>
-        <ion-card no-margin>
-            <ion-card-content no-padding>
-              <ion-thumbnail size="100px">
-                <img src="https://cdn.pixabay.com/photo/2016/07/09/12/16/apple-1506119_640.jpg" alt="">
-              </ion-thumbnail>
-              <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-              <div padding-horizontal>
-                  and break clear away...
-                  <p><b>$120</b></p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-    </ion-col>
-  </ion-row>
-  </ion-grid>
-  <ion-grid>
-      <ion-row>
-      <ion-col>
-        <ion-card no-margin>
-          <ion-card-content no-padding>
-            <ion-thumbnail size="100px">
-              <img src="https://cdn.pixabay.com/photo/2012/02/22/19/24/fruit-15408_640.jpg" alt="">
-            </ion-thumbnail>
-            <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-            <div padding-horizontal>
-                and break clear away...
-                <p><b>$120</b></p>
-            </div>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col>
-          <ion-card no-margin>
-              <ion-card-content no-padding>
-                <ion-thumbnail size="100px">
-                  <img src="https://cdn.pixabay.com/photo/2016/07/09/12/16/apple-1506119_640.jpg" alt="">
-                </ion-thumbnail>
-                <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-                <div padding-horizontal>
-                    and break clear away...
-                    <p><b>$120</b></p>
-                </div>
-              </ion-card-content>
-            </ion-card>
-      </ion-col>
-    </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-        <ion-col>
-          <ion-card no-margin>
-            <ion-card-content no-padding>
-              <ion-thumbnail size="100px">
-                <img src="https://cdn.pixabay.com/photo/2018/05/26/10/54/strawberries-3431122_640.jpg" alt="">
-              </ion-thumbnail>
-              <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-              <div padding-horizontal>
-                  and break clear away...
-                  <p><b>$120</b></p>
-              </div>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-        <ion-col>
-            <ion-card no-margin>
-                <ion-card-content no-padding>
-                  <ion-thumbnail size="100px">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/15/18/23/mango-1982330_640.jpg" alt="">
-                  </ion-thumbnail>
-                  <ion-card-subtitle padding-horizontal>Keep close to Nature's heart</ion-card-subtitle>
-                  <div padding-horizontal>
-                      and break clear away...
-                      <p><b>$120</b></p>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-        </ion-col>
-      </ion-row>
-      </ion-grid>
-
-
-
+  <div class="product-list">
+    <ion-card no-margin *ngFor="let product of products">
+      <ion-card-content no-padding>
+        <ion-thumbnail size="100px">
+          <img [src]="product?.images[0]?.src" alt="{{product?.name}}">
+        </ion-thumbnail>
+        <ion-card-subtitle padding-horizontal >{{product?.name}}</ion-card-subtitle>
+        <div padding-horizontal>
+          <div [innerHtml]="product.description"></div>
+          <p [innerHtml]="product.price_html"></p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
