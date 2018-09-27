@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { 
+import {
   WoocommerceProductsService,
-  Product
+  Product,
+  ProductQuery
  } from 'ngx-wooapi';
 
 @Component({
@@ -10,16 +11,36 @@ import {
   styleUrls: ['./shop-home.page.scss'],
 })
 export class ShopHomePage implements OnInit {
-  products: Array<Product>;
+  products: Array<Product> = [];
+  headers;
+  query: ProductQuery;
+
   constructor(
     private woocommerceProductService: WoocommerceProductsService
   ) { }
 
   ngOnInit() {
-    this.woocommerceProductService.retrieveProducts().subscribe(res => {
+    this.query = {};
+    this.query.page = 1;
+    this.getproducts();
+  }
+
+  loadData(res) {
+    console.log(res);
+    this.query.page ++;
+    console.log(this.query);
+    this.getproducts(this.query, res);
+  }
+
+  getproducts(query?, scroll?) {
+    this.woocommerceProductService.retrieveProducts(query).subscribe(res => {
       console.log(res);
-      this.products = res.products;
-    })
+      this.products = this.products.concat(res.products);
+      this.headers = res.headers;
+      if (scroll) {
+        scroll.target.complete();
+      }
+    });
   }
 
 }
