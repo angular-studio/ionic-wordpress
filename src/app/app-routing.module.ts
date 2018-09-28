@@ -7,7 +7,8 @@ const routes: Routes = [
     redirectTo: 'shop-home',
     pathMatch: 'full'
   },
-  { path: 'shop-home', loadChildren: './shop-home/shop-home.module#ShopHomePageModule' }
+  { path: 'shop-home', loadChildren: './shop-home/shop-home.module#ShopHomePageModule' },
+  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
 ];
 
 @NgModule({
