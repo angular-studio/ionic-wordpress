@@ -6,9 +6,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { 
+import {
   WoocommerceProductsService,
-  WoocommerceHelperService
+  WoocommerceHelperService,
+  WoocommerceCustomerService
  } from 'ngx-wooapi';
 import { AppInterceptor } from './app.interceptor';
 
@@ -35,7 +36,8 @@ import { AppRoutingModule } from './app-routing.module';
       multi: true
     },
     WoocommerceProductsService,
-    WoocommerceHelperService
+    WoocommerceHelperService,
+    WoocommerceCustomerService
   ],
   bootstrap: [AppComponent]
 })

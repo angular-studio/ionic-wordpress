@@ -14,6 +14,21 @@ export class AppComponent {
       title: 'shop home',
       url: '/shop-home',
       icon: 'home'
+    },
+    {
+      title: 'profile',
+      url: '/profile',
+      icon: 'person'
+    },
+    {
+      title: 'login',
+      url: '/login',
+      icon: 'contact'
+    },
+    {
+      title: 'register',
+      url: '/register',
+      icon: 'person-add'
     }
   ];
 

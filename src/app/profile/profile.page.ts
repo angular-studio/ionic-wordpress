@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WoocommerceCustomerService } from 'ngx-wooapi';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
-  constructor() { }
+  token;
+  constructor(
+    private wooCustomerService: WoocommerceCustomerService
+  ) { }
 
   ngOnInit() {
+    this.token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : {};
   }
 
 }

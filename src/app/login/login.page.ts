@@ -23,10 +23,10 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    this.authService.getAuthToken(this.loginForm.value).subscribe(res => {
+    this.authService.generateAuthCookie(this.loginForm.value).subscribe(res => {
       console.log(res);
-      localStorage.setItem('token', res);
-    })
+      localStorage.setItem('token', JSON.stringify(res));
+    });
   }
 
 }
