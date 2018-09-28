@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   AuthService
 } from 'ngx-wooapi';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -9,32 +10,35 @@ import {
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  nonce; 
+  registerForm: FormGroup;
+
   constructor(
-    private authservice: AuthService
+    private authservice: AuthService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      display_name: ['', Validators.required],
+      email: ['', Validators.required],
+      user_pass: ['', Validators.required],
+      nonce: ['', Validators.required],
+      notify: ['both']
+    });
     this.authservice.createNonce({
       controller: 'user',
       method: 'register'
     }).subscribe(res => {
       console.log(res);
-      this.nonce = res.nonce;
+      this.registerForm.get('nonce').patchValue(res.nonce);
     });
-
-    this.register();
   }
   register() {
-    this.authservice.register({
-      username: 'prosenjit1',
-      email: 'prosenjit+ww1@itobuz.com',
-      nonce: 'c6434ab960',
-      display_name: 'Prosenjit',
-      notify: 'both'
-    }).subscribe(res => {
+    console.log(this.registerForm.value);
+    this.authservice.register(this.registerForm.value).subscribe(res => {
       console.log(res);
-    })
+    });
   }
 
 }
