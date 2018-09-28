@@ -8,6 +8,18 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./login/login.module": [
+		"./src/app/login/login.module.ts",
+		"login-login-module"
+	],
+	"./profile/profile.module": [
+		"./src/app/profile/profile.module.ts",
+		"profile-profile-module"
+	],
+	"./register/register.module": [
+		"./src/app/register/register.module.ts",
+		"register-register-module"
+	],
 	"./shop-home/shop-home.module": [
 		"./src/app/shop-home/shop-home.module.ts",
 		"shop-home-shop-home-module"
@@ -61,7 +73,10 @@ var routes = [
         redirectTo: 'shop-home',
         pathMatch: 'full'
     },
-    { path: 'shop-home', loadChildren: './shop-home/shop-home.module#ShopHomePageModule' }
+    { path: 'shop-home', loadChildren: './shop-home/shop-home.module#ShopHomePageModule' },
+    { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+    { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
+    { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -124,19 +139,24 @@ var AppComponent = /** @class */ (function () {
         this.statusBar = statusBar;
         this.appPages = [
             {
-                title: 'Home',
-                url: '/home',
-                icon: 'home'
-            },
-            {
-                title: 'List',
-                url: '/list',
-                icon: 'list'
-            },
-            {
                 title: 'shop home',
                 url: '/shop-home',
                 icon: 'home'
+            },
+            {
+                title: 'profile',
+                url: '/profile',
+                icon: 'person'
+            },
+            {
+                title: 'login',
+                url: '/login',
+                icon: 'contact'
+            },
+            {
+                title: 'register',
+                url: '/register',
+                icon: 'person-add'
             }
         ];
         this.initializeApp();
@@ -310,7 +330,8 @@ var AppModule = /** @class */ (function () {
                     multi: true
                 },
                 ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceProductsService"],
-                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceHelperService"]
+                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceHelperService"],
+                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceCustomerService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })

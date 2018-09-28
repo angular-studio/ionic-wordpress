@@ -62,7 +62,7 @@ var ShopHomePageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n      Shop Home\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-searchbar animated placeholder=\"Search your item\"></ion-searchbar>\n  <div class=\"product-list\">\n    <ion-card no-margin *ngFor=\"let product of products\">\n      <ion-card-content no-padding>\n        <ion-thumbnail size=\"100px\">\n          <img [src]=\"product?.images[0]?.src\" alt=\"{{product?.name}}\">\n        </ion-thumbnail>\n        <ion-card-subtitle padding-horizontal >{{product?.name}}</ion-card-subtitle>\n        <div padding-horizontal>\n          <div [innerHtml]=\"product.description\"></div>\n          <p [innerHtml]=\"product.price_html\"></p>\n        </div>\n      </ion-card-content>\n    </ion-card>\n  </div>\n</ion-content>"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>\n      Shop Home\n    </ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-searchbar animated placeholder=\"Search your item\"></ion-searchbar>\n  <div class=\"product-list\">\n    <ion-card no-margin *ngFor=\"let product of products\">\n      <ion-card-content no-padding>\n        <ion-thumbnail size=\"100px\">\n          <img [src]=\"product?.images[0]?.src\" alt=\"{{product?.name}}\">\n        </ion-thumbnail>\n        <ion-card-subtitle padding-horizontal >{{product?.name}}</ion-card-subtitle>\n        <div padding-horizontal>\n          <div [innerHtml]=\"product.description\"></div>\n          <p [innerHtml]=\"product.price_html\"></p>\n        </div>\n      </ion-card-content>\n    </ion-card>\n  </div>\n\n  <ion-infinite-scroll threshold=\"100px\" (ionInfinite)=\"loadData($event)\">\n    <ion-infinite-scroll-content\n      loadingSpinner=\"bubbles\"\n      loadingText=\"Loading more data...\">\n    </ion-infinite-scroll-content>\n  </ion-infinite-scroll>\n</ion-content>"
 
 /***/ }),
 
@@ -103,12 +103,28 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 var ShopHomePage = /** @class */ (function () {
     function ShopHomePage(woocommerceProductService) {
         this.woocommerceProductService = woocommerceProductService;
+        this.products = [];
     }
     ShopHomePage.prototype.ngOnInit = function () {
+        this.query = {};
+        this.query.page = 1;
+        this.getproducts();
+    };
+    ShopHomePage.prototype.loadData = function (res) {
+        console.log(res);
+        this.query.page++;
+        console.log(this.query);
+        this.getproducts(this.query, res);
+    };
+    ShopHomePage.prototype.getproducts = function (query, scroll) {
         var _this = this;
-        this.woocommerceProductService.retrieveProducts().subscribe(function (res) {
+        this.woocommerceProductService.retrieveProducts(query).subscribe(function (res) {
             console.log(res);
-            _this.products = res.products;
+            _this.products = _this.products.concat(res.products);
+            _this.headers = res.headers;
+            if (scroll) {
+                scroll.target.complete();
+            }
         });
     };
     ShopHomePage = __decorate([
