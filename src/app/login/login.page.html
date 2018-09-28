@@ -5,5 +5,15 @@
 </ion-header>
 
 <ion-content padding>
-
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <ion-item>
+      <ion-label position="floating">Enter user name</ion-label>
+      <ion-input formControlName="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Enter password</ion-label>
+      <ion-input formControlName="password"></ion-input>
+    </ion-item>
+    <ion-button size="small" type="submit">Login</ion-button>
+  </form>
 </ion-content>
