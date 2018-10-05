@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
 import { HeaderComponent } from './header/header.component';
+import { SearchModalComponent } from './search-modal/search-modal.component';
 
 const components = [
-  HeaderComponent
+  HeaderComponent,
+  SearchModalComponent
 ];
 
 @NgModule({
@@ -14,6 +16,9 @@ const components = [
     IonicModule
   ],
   declarations: components,
-  exports: components
+  exports: components,
+  entryComponents: [
+    SearchModalComponent
+  ]
 })
 export class SharedComponentsModule { }
