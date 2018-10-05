@@ -1,3 +1,14 @@
-ion-thumbnail {
-    --size: 100%;
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+
+
+    ion-card {
+        width: calc(50% - 15px);
+        margin: 10px 0 10px 10px;
+    }
+
+    /deep/ ion-thumbnail {
+        --size: 100%;
+    }
 }

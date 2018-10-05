@@ -169,10 +169,15 @@
   },
   "schematics": {
     "@ionic/schematics-angular:component": {
-      "styleext": "scss"
+      "styleext": "scss",
+      "spec": false
     },
     "@ionic/schematics-angular:page": {
-      "styleext": "scss"
+      "styleext": "scss",
+      "spec": false
+    },
+    "@ionic/schematics-angular:module": {
+      "spec": false
     }
   }
 }
