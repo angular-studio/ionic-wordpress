@@ -1,1 +1,1 @@
-demo: https://angular-studio.github.io/ionic-wordpress
+demo: https://ionic-wordpress.netlify.com
