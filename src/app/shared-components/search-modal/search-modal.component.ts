@@ -18,7 +18,10 @@ export class SearchModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.woocommerceCategoriesService.retrieveCategories().subscribe(res => {
+    const query = {
+      hide_empty: true
+    };
+    this.woocommerceCategoriesService.retrieveCategories(query).subscribe(res => {
       this.categories = res;
     });
   }
@@ -32,7 +35,7 @@ export class SearchModalComponent implements OnInit {
   }
 
   search() {
-    this.router.navigate(['/shop-home'], {queryParams: {search: this.searchString}});
+    this.router.navigate(['/products'], {queryParams: {search: this.searchString}});
     this.closeModal();
   }
 

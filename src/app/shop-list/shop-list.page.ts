@@ -7,11 +7,11 @@ import {
  } from 'ngx-wooapi';
 
 @Component({
-  selector: 'app-shop-home',
-  templateUrl: './shop-home.page.html',
-  styleUrls: ['./shop-home.page.scss'],
+  selector: 'app-shop-list',
+  templateUrl: './shop-list.page.html',
+  styleUrls: ['./shop-list.page.scss'],
 })
-export class ShopHomePage implements OnInit {
+export class ShopListPage implements OnInit {
   products: Array<Product> = [];
   headers;
   query: ProductQuery = {
