@@ -1,0 +1,12 @@
+.product-details {
+    &__rating {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        p {
+            padding: 0;
+        }
+    }
+} 
