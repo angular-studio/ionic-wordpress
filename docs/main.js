@@ -213,11 +213,9 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 // import { Router } from '@angular/router';
 
 
-// import { AuthService } from './auth.service';
 
 var AppInterceptor = /** @class */ (function () {
     function AppInterceptor(
-    // private injector: Injector,
     // private router: Router
     ) {
     }
@@ -235,17 +233,30 @@ var AppInterceptor = /** @class */ (function () {
     };
     AppInterceptor.prototype.intercept = function (request, next) {
         var authRequest;
-        // const auth = this.injector.get(AuthService);
         var requestUrl = '';
-        if (request.url.includes('api') || request.url.includes('jwt')) {
+        if (request.url.includes('wp/')) {
+            var reqUrl = request.url.replace('wp/', '');
+            requestUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].origin + "/" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].wpEndpoint + "/" + reqUrl;
+        }
+        else if (request.url.includes('api') || request.url.includes('jwt')) {
             requestUrl = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].origin + "/" + request.url;
         }
         else {
             requestUrl = "" + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].origin + _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].wcEndpoint + "/" + request.url + this.includeWooAuth(request.url);
         }
-        authRequest = request.clone({
-            url: requestUrl
-        });
+        if (request.url.includes('wp/')) {
+            authRequest = request.clone({
+                url: requestUrl,
+                setHeaders: {
+                    'Authorization': "Bearer " + localStorage.getItem('token')
+                }
+            });
+        }
+        else {
+            authRequest = request.clone({
+                url: requestUrl
+            });
+        }
         return next.handle(authRequest)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_2__["catchError"])(function (err) {
             if (err instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpErrorResponse"] && err.status === 0) {
@@ -331,7 +342,8 @@ var AppModule = /** @class */ (function () {
                 },
                 ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceProductsService"],
                 ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceHelperService"],
-                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceCustomerService"]
+                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceCustomerService"],
+                ngx_wooapi__WEBPACK_IMPORTED_MODULE_7__["WoocommerceCategoriesService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_9__["AppComponent"]]
         })
@@ -354,8 +366,9 @@ var AppModule = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "environment", function() { return environment; });
 var environment = {
-    production: true,
+    production: false,
     origin: 'https://laravel-studio.com/appwoo',
+    wpEndpoint: '/wp-json/wp/v2',
     wcEndpoint: '/wp-json/wc/v2',
     woocommerce: {
         consumer_key: 'ck_0aac6794e07b054a9fb4dd57faa8c8b3a375d35b',

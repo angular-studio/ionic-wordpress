@@ -89,6 +89,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProfilePage", function() { return ProfilePage; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ngx_wooapi__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ngx-wooapi */ "./node_modules/ngx-wooapi/fesm5/ngx-wooapi.js");
+/* harmony import */ var _services_users_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/users.service */ "./src/app/services/users.service.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -100,12 +102,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
+
 var ProfilePage = /** @class */ (function () {
-    function ProfilePage(wooCustomerService) {
+    function ProfilePage(wooCustomerService, customerService, usersService) {
         this.wooCustomerService = wooCustomerService;
+        this.customerService = customerService;
+        this.usersService = usersService;
     }
     ProfilePage.prototype.ngOnInit = function () {
-        this.token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : {};
+        var _this = this;
+        this.usersService.me()
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["switchMap"])(function (user) { return _this.customerService.retriveCustomers(user.id); }))
+            .subscribe(function (res) {
+            _this.token = res;
+        });
     };
     ProfilePage = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -113,9 +124,67 @@ var ProfilePage = /** @class */ (function () {
             template: __webpack_require__(/*! ./profile.page.html */ "./src/app/profile/profile.page.html"),
             styles: [__webpack_require__(/*! ./profile.page.scss */ "./src/app/profile/profile.page.scss")],
         }),
-        __metadata("design:paramtypes", [ngx_wooapi__WEBPACK_IMPORTED_MODULE_1__["WoocommerceCustomerService"]])
+        __metadata("design:paramtypes", [ngx_wooapi__WEBPACK_IMPORTED_MODULE_1__["WoocommerceCustomerService"],
+            ngx_wooapi__WEBPACK_IMPORTED_MODULE_1__["WoocommerceCustomerService"],
+            _services_users_service__WEBPACK_IMPORTED_MODULE_2__["UsersService"]])
     ], ProfilePage);
     return ProfilePage;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/users.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/users.service.ts ***!
+  \*******************************************/
+/*! exports provided: UsersService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UsersService", function() { return UsersService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var ngx_wooapi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-wooapi */ "./node_modules/ngx-wooapi/fesm5/ngx-wooapi.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var UsersService = /** @class */ (function () {
+    function UsersService(http, wooHelperService) {
+        this.http = http;
+        this.wooHelperService = wooHelperService;
+    }
+    UsersService.prototype.me = function () {
+        var _this = this;
+        return this.http.get('wp/users/me')
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) { return _this.wooHelperService.handleError(err); }));
+    };
+    UsersService.prototype.getuser = function (id) {
+        var _this = this;
+        return this.http.get("wp/users/" + id)
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) { return _this.wooHelperService.handleError(err); }));
+    };
+    UsersService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            ngx_wooapi__WEBPACK_IMPORTED_MODULE_2__["WoocommerceHelperService"]])
+    ], UsersService);
+    return UsersService;
 }());
 
 

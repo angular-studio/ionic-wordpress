@@ -68,7 +68,7 @@ var LoginPageModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>login</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n    <ion-item>\n      <ion-label position=\"floating\">Enter user name</ion-label>\n      <ion-input formControlName=\"username\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"floating\">Enter password</ion-label>\n      <ion-input formControlName=\"password\"></ion-input>\n    </ion-item>\n    <ion-button size=\"small\" type=\"submit\">Login</ion-button>\n  </form>\n</ion-content>\n"
+module.exports = "<ion-header>\n  <ion-toolbar>\n    <ion-title>login</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content padding>\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"login()\">\n    <ion-item>\n      <ion-label position=\"floating\">Enter user name</ion-label>\n      <ion-input formControlName=\"username\"></ion-input>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"floating\">Enter password</ion-label>\n      <ion-input formControlName=\"password\" type=\"password\"></ion-input>\n    </ion-item>\n    <ion-button size=\"small\" type=\"submit\">Login</ion-button>\n  </form>\n</ion-content>\n"
 
 /***/ }),
 
@@ -95,7 +95,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginPage", function() { return LoginPage; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var ngx_wooapi__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ngx-wooapi */ "./node_modules/ngx-wooapi/fesm5/ngx-wooapi.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_wooapi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ngx-wooapi */ "./node_modules/ngx-wooapi/fesm5/ngx-wooapi.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -108,8 +109,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var LoginPage = /** @class */ (function () {
-    function LoginPage(formBuilder, authService) {
+    function LoginPage(router, formBuilder, authService) {
+        this.router = router;
         this.formBuilder = formBuilder;
         this.authService = authService;
     }
@@ -120,9 +123,11 @@ var LoginPage = /** @class */ (function () {
         });
     };
     LoginPage.prototype.login = function () {
-        this.authService.generateAuthCookie(this.loginForm.value).subscribe(function (res) {
+        var _this = this;
+        this.authService.getAuthToken(this.loginForm.value).subscribe(function (res) {
             console.log(res);
-            localStorage.setItem('token', JSON.stringify(res));
+            localStorage.setItem('token', res.token);
+            _this.router.navigate(['/profile']);
         });
     };
     LoginPage = __decorate([
@@ -131,8 +136,9 @@ var LoginPage = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.page.html */ "./src/app/login/login.page.html"),
             styles: [__webpack_require__(/*! ./login.page.scss */ "./src/app/login/login.page.scss")],
         }),
-        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
-            ngx_wooapi__WEBPACK_IMPORTED_MODULE_2__["AuthService"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            ngx_wooapi__WEBPACK_IMPORTED_MODULE_3__["AuthService"]])
     ], LoginPage);
     return LoginPage;
 }());
