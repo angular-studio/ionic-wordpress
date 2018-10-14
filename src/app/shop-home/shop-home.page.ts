@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   WoocommerceProductsService,
   Product,
@@ -13,16 +14,29 @@ import {
 export class ShopHomePage implements OnInit {
   products: Array<Product> = [];
   headers;
-  query: ProductQuery;
+  query: ProductQuery = {
+    page : 1
+  };
 
   constructor(
+    private activatedRoute: ActivatedRoute,
     private woocommerceProductService: WoocommerceProductsService
   ) { }
 
   ngOnInit() {
-    this.query = {};
-    this.query.page = 1;
-    this.getproducts();
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.query = Object.keys(params).length ? Object.assign(this.query, params) : {
+        page: 1
+      } ;
+      console.log('query', params, this.query);
+
+      if (params) {
+        this.getproducts(this.query);
+        this.products = [];
+      } else {
+        this.getproducts();
+      }
+    });
   }
 
   loadData(res) {

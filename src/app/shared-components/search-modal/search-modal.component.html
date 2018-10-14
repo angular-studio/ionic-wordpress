@@ -12,5 +12,18 @@
   </ion-header>
 
 <ion-content padding>
-  content
+  <ion-searchbar debounce="800" (ionChange)="updateSearchKey($event)"></ion-searchbar>
+  <ion-button expand="full" (click)="search()">Search</ion-button>
+  <h3>Categories</h3>
+
+  <ion-list>
+    <ion-item *ngFor="let cat of categories" [routerLink]="'/shop-home'" [queryParams]="{'category': cat.id}" (click)="closeModal()">
+      <ion-avatar slot="start" *ngIf="cat?.image">
+        <img [src]="cat?.image?.src"/>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{cat.name}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

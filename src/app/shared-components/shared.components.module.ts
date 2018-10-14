@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ const components = [
 @NgModule({
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    RouterModule
   ],
   declarations: components,
   exports: components,

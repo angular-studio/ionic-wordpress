@@ -178,6 +178,9 @@
     },
     "@ionic/schematics-angular:module": {
       "spec": false
+    },
+    "@ionic/schematics-angular:service": {
+      "spec": false
     }
   }
 }
