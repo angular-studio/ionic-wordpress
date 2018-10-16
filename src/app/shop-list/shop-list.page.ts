@@ -14,9 +14,10 @@ import {
 export class ShopListPage implements OnInit {
   products: Array<Product> = [];
   headers;
-  query: ProductQuery = {
+  queryDefault: ProductQuery = {
     page : 1
   };
+  query: ProductQuery;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,7 +26,7 @@ export class ShopListPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params: any) => {
-      this.query = Object.keys(params).length ? Object.assign(this.query, params) : {
+      this.query = Object.keys(params).length ? Object.assign(this.queryDefault, params) : {
         page: 1
       } ;
       console.log('query', params, this.query);
