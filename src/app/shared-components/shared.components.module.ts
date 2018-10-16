@@ -5,10 +5,12 @@ import { IonicModule } from '@ionic/angular';
 
 import { HeaderComponent } from './header/header.component';
 import { SearchModalComponent } from './search-modal/search-modal.component';
+import { ProductSortDirective } from './product-sort.directive';
 
 const components = [
   HeaderComponent,
-  SearchModalComponent
+  SearchModalComponent,
+  ProductSortDirective
 ];
 
 @NgModule({

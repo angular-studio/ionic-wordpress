@@ -181,6 +181,9 @@
     },
     "@ionic/schematics-angular:service": {
       "spec": false
+    },
+    "@ionic/schematics-angular:directive": {
+      "spec": false
     }
   }
 }
