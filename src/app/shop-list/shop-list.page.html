@@ -2,8 +2,12 @@
 
 <ion-content>
   <div class="product-list">
-    <ion-card no-margin *ngFor="let product of products">
-      <ion-card-content no-padding>
+    <ion-card 
+    no-margin *ngFor="let product of products">
+      <ion-card-content
+      [routerLink]="['/product-detail', product.id]" 
+      routerLinkActive="router-link-active"  
+      no-padding>
         <ion-thumbnail>
           <img [src]="product?.images[0]?.src" alt="{{product?.name}}">
         </ion-thumbnail>

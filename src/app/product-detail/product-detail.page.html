@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>product-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img [src]="productDetail?.images[0].src" alt="{{productDetail?.name}}"></ion-img>
+  <ion-card-header>
+    <ion-card-title>{{productDetail?.name}}</ion-card-title>
+    <div class="product-details__rating">
+      <div>
+        <ion-icon *ngFor="let icon of icons" [name]="icon"></ion-icon>
+      </div>
+      <div>
+        <p no-margin>{{productDetail?.rating_count}} customer reviews</p>
+      </div>
+    </div>
+    <ion-card-subtitle>Price: &#163;{{productDetail?.price}}</ion-card-subtitle>
+  </ion-card-header>
+    <ion-card>
+      <ion-card-content>
+        <div>
+          <div [innerHtml]="productDetail?.description"></div>
+          <ion-item>
+            <ion-input type="number" value="1"></ion-input>
+            <ion-button color="primary">Add to cart</ion-button>
+          </ion-item>
+          <p padding-vertical>Category: {{productDetail?.categories[0].name}},{{productDetail?.categories[1].name}}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+</ion-content>
