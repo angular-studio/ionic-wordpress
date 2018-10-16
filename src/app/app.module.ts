@@ -9,7 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {
   WoocommerceProductsService,
   WoocommerceHelperService,
-  WoocommerceCustomerService
+  WoocommerceCustomerService,
+  WoocommerceCategoriesService
  } from 'ngx-wooapi';
 import { AppInterceptor } from './app.interceptor';
 
@@ -37,7 +38,8 @@ import { AppRoutingModule } from './app-routing.module';
     },
     WoocommerceProductsService,
     WoocommerceHelperService,
-    WoocommerceCustomerService
+    WoocommerceCustomerService,
+    WoocommerceCategoriesService
   ],
   bootstrap: [AppComponent]
 })

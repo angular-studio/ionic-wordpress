@@ -1,6 +1,7 @@
 export const environment = {
-  production: true,
+  production: false,
   origin: 'https://laravel-studio.com/appwoo',
+  wpEndpoint: '/wp-json/wp/v2',
   wcEndpoint: '/wp-json/wc/v2',
   woocommerce: {
     consumer_key:  'ck_0aac6794e07b054a9fb4dd57faa8c8b3a375d35b',

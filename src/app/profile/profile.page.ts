@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WoocommerceCustomerService } from 'ngx-wooapi';
+import { UsersService } from '../services/users.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -9,11 +11,17 @@ import { WoocommerceCustomerService } from 'ngx-wooapi';
 export class ProfilePage implements OnInit {
   token;
   constructor(
-    private wooCustomerService: WoocommerceCustomerService
+    private wooCustomerService: WoocommerceCustomerService,
+    private customerService: WoocommerceCustomerService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
-    this.token = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('token')) : {};
+    this.usersService.me()
+    .pipe(switchMap(user => this.customerService.retriveCustomers(user.id)))
+    .subscribe(res => {
+      this.token = res;
+    });
   }
 
 }
