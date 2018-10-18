@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ProductDetailPage } from './product-detail.page';
+import { IwUiModule } from './../iw-ui/iw-ui.module';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    IwUiModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ProductDetailPage]

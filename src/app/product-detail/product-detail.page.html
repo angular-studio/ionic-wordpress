@@ -8,9 +8,9 @@
   <ion-img [src]="productDetail?.images[0].src" alt="{{productDetail?.name}}"></ion-img>
   <ion-card-header>
     <ion-card-title>{{productDetail?.name}}</ion-card-title>
-    <div class="product-details__rating">
+    <div class="product-details__rating" padding-vertical>
       <div>
-        <ion-icon *ngFor="let icon of icons" [name]="icon"></ion-icon>
+        <app-rating [rate]="rating"></app-rating>
       </div>
       <div>
         <p no-margin>{{productDetail?.rating_count}} customer reviews</p>
