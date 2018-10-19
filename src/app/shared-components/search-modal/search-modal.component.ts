@@ -19,8 +19,9 @@ export class SearchModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const query: CategoryQuery = {} as any;
+    const query = {} as CategoryQuery;
     query.hide_empty = true;
+    console.log(query);
     this.woocommerceCategoriesService.retrieveCategories(query).subscribe(res => {
       this.categories = res;
     });
