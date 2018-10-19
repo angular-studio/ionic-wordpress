@@ -1,6 +1,5 @@
 import {
   Injectable,
-  // Injector
  } from '@angular/core';
 import {
   HttpRequest,
@@ -13,14 +12,12 @@ import {
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
-// import { AuthService } from './auth.service';
 import { environment } from '../environments/environment';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
 
   constructor(
-    // private injector: Injector,
     // private router: Router
   ) { }
 
@@ -38,16 +35,29 @@ export class AppInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authRequest;
-    // const auth = this.injector.get(AuthService);
     let requestUrl = '';
-    if (request.url.includes('api') || request.url.includes('jwt')) {
+    if (request.url.includes('wp/')) {
+      const reqUrl = request.url.replace('wp/', '');
+      requestUrl = `${environment.origin}/${environment.wpEndpoint}/${reqUrl}`;
+    } else if (request.url.includes('api') || request.url.includes('jwt')) {
       requestUrl = `${environment.origin}/${request.url}`;
     } else {
       requestUrl = `${environment.origin}${environment.wcEndpoint}/${request.url}${this.includeWooAuth(request.url)}`;
     }
-    authRequest = request.clone({
-      url: requestUrl
-    });
+
+    if (request.url.includes('wp/')) {
+      authRequest = request.clone({
+        url: requestUrl,
+        setHeaders: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+    } else {
+      authRequest = request.clone({
+        url: requestUrl
+      });
+    }
+    
 
     return next.handle(authRequest)
       .pipe(

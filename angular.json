@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "progress": false,
-            "outputPath": "docs",
+            "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -177,6 +177,12 @@
       "spec": false
     },
     "@ionic/schematics-angular:module": {
+      "spec": false
+    },
+    "@ionic/schematics-angular:service": {
+      "spec": false
+    },
+    "@ionic/schematics-angular:directive": {
       "spec": false
     }
   }
