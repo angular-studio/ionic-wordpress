@@ -1,0 +1,24 @@
+.star-rating {
+    height: 20px;
+    width: 115px;
+    position: relative;
+
+    &__full-star {
+        position: absolute;
+        z-index: 1;
+        background-image: url('./../../../assets/img/filled-star.png');
+    }
+
+    &__empty-star {
+        width: 100%;
+        background-image: url('./../../../assets/img/ReviewStars5.png');
+    }
+    
+    &__common {
+        height: 100%;
+        background-size: 115px 20px;
+    }
+}
+
+
+

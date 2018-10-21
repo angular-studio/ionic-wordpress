@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { WoocommerceCategoriesService } from 'ngx-wooapi';
+
+import { CategoryQuery, WoocommerceCategoriesService } from 'ngx-wooapi';
 
 @Component({
   selector: 'app-search-modal',
@@ -18,9 +19,9 @@ export class SearchModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const query = {
-      hide_empty: true
-    };
+    const query = {} as CategoryQuery;
+    query.hide_empty = true;
+    console.log(query);
     this.woocommerceCategoriesService.retrieveCategories(query).subscribe(res => {
       this.categories = res;
     });

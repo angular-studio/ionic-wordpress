@@ -13,7 +13,8 @@ import {
 })
 export class ProductDetailPage implements OnInit {
   productDetail;
-  icons = [];
+  ratingResponse;
+  rating;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,11 +29,15 @@ export class ProductDetailPage implements OnInit {
     )
     .subscribe(res => {
       this.productDetail = res;
-      const rating = res.rating_count;
-      for (let i = 1; i <= rating; i++) {
-        this.icons.push('star');
-      }
+      this.ratingResponse = res.rating_count;
+      this.rating = this.getRating();
+      console.log('ratingResponse', this.ratingResponse);
+      console.log('productDetail', this.productDetail);
     });
+  }
+
+  getRating() {
+    return this.ratingResponse ? this.ratingResponse * 20 + '%' : 0 +  '%';
   }
 
 }
