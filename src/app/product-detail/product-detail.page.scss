@@ -12,7 +12,14 @@
             opacity: .6;
         }
     }
-} 
+    &__add-to-cart {
+        ion-input {
+            border: 1px solid;
+            border-radius: 4px;
+            margin-top: 2px;
+        }   
+    }       
+}   
 .active {
     ion-img {
         opacity: 1;
