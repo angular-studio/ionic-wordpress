@@ -15,6 +15,9 @@ export class ProductDetailPage implements OnInit {
   productDetail;
   ratingResponse;
   rating;
+  sliderImage;
+  sliderImageName;
+  selectedIndex;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +41,12 @@ export class ProductDetailPage implements OnInit {
 
   getRating() {
     return this.ratingResponse ? this.ratingResponse * 20 + '%' : 0 +  '%';
+  }
+
+  updateSliderImage(e, i) {
+    this.sliderImage = e.path[0].currentSrc;
+    this.sliderImageName = this.sliderImage.substring(this.sliderImage.lastIndexOf('/')+1, this.sliderImage.lastIndexOf('.'));
+    this.selectedIndex = i;
   }
 
 }

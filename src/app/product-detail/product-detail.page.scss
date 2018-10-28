@@ -7,4 +7,14 @@
             padding-top: 4px;
         }
     }
+    &__thumbnail {
+        ion-img {
+            opacity: .6;
+        }
+    }
 } 
+.active {
+    ion-img {
+        opacity: 1;
+    }
+}
