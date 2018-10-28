@@ -5,7 +5,24 @@
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="productDetail?.images[0].src" alt="{{productDetail?.name}}"></ion-img>
+  <ion-img 
+  [src]="sliderImage != null ? sliderImage : productDetail?.images[0]?.src" 
+  alt="{{sliderImageName != null ? sliderImageName : productDetail?.images[0]?.name}}"></ion-img>   
+  <ion-grid no-padding>
+    <ion-row justify-content-center>
+      <ion-col size="3" *ngFor="let image of productDetail?.images let i = index">
+        <div 
+        (click)="updateSliderImage($event, i)" 
+        class="product-details__thumbnail"
+        [ngClass]="{'active': selectedIndex == i}">
+          <ion-img
+          [src]="image.src"
+          alt="thumbnail-image"
+          ></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>  
   <ion-card-header>
     <ion-card-title>{{productDetail?.name}}</ion-card-title>
     <div class="product-details__rating" padding-vertical>
