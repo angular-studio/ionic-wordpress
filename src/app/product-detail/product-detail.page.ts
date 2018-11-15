@@ -32,7 +32,7 @@ export class ProductDetailPage implements OnInit {
     )
     .subscribe(res => {
       this.productDetail = res;
-      this.ratingResponse = res.rating_count;
+      this.ratingResponse = res.average_rating;
       this.rating = this.getRating();
       console.log('ratingResponse', this.ratingResponse);
       console.log('productDetail', this.productDetail);
